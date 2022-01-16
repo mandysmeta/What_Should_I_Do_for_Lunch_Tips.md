@@ -51,7 +51,7 @@ const printTracks = function() {
 }
 printTracks(library);
 
-// prints a list of tracks for a given playlist, using the following format:
+// ✔️prints a list of tracks for a given playlist, using the following format:
 // p01: Coding Music - 2 tracks
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
@@ -60,10 +60,10 @@ const printPlaylist = function(playlistId) {
        
 // select the correct playlist based on parameter passed in
 const playlist = library.playlists[playlistId]
-const playlistString = playlist
 // access the array so we can loop on it
 const songs = playlist.tracks
-       for (const arrItem of songs ) {
+console.log(playlistId + ": " + library.playlists[playlistId].name + " - " + library.playlists[playlistId].tracks.length + ' tracks')
+       for (const arrItem of songs) {
               // access the tracks object using the key from the array
               const songObj = library.tracks[arrItem];
               // console.log("songObj:",songObj)
@@ -74,12 +74,12 @@ const songs = playlist.tracks
 }
 printPlaylist('p01') 
 
-
-// adds an existing track to an existing playlist
+// ✔️adds an existing track to an existing playlist
 const addTrackToPlaylist = function(trackId, playlistId) {
-
+       library.playlists[playlistId].tracks.push(trackId)
+       console.log(playlistId + ": ", library.playlists[playlistId].tracks);
 }
-
+addTrackToPlaylist('t03', 'p01')
 
 // generates a unique id
 // (already implemented: use this for addTrack and addPlaylist)
@@ -87,15 +87,28 @@ const generateUid = function() {
   return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 }
 
-
-// adds a track to the library
+// ✔️adds a track to the library
 const addTrack = function(name, artist, album) {
-
+       const trackId = generateUid() 
+       const newTrack = {
+              id: trackId,      
+              name,
+              artist,
+              album, }
+       library.tracks[trackId] = newTrack
+       console.log(library.tracks)
 }
+addTrack('Barbie Girl', 'Aqua', 'Aquarius')
 
-
-// adds a playlist to the library
+// ✔️adds a playlist to the library
 const addPlaylist = function(name) {
-
+       const playlistId = generateUid()
+       const newPlaylist = {
+              id: playlistId,
+              name, }
+       library.playlists[playlistId] = newPlaylist
+       console.log(library.playlists)
 }
+addPlaylist('Zen Tunes')
 
+console.log(library)
